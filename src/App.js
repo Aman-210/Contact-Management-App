@@ -13,7 +13,7 @@ import Update from './components/Contactpage/Update';
 
 function App() {
   return (
-   <BrowserRouter>
+   <BrowserRouter  basename='/Contact-Management-App'>
    
    <Routes>
    
