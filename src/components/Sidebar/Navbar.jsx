@@ -1,39 +1,64 @@
 
-import{ AppBar, Toolbar,styled, Typography } from '@mui/material'
+import{ AppBar, Toolbar,styled, Typography , Box } from '@mui/material'
 import { Link } from 'react-router-dom'
 import Page1 from '../Contactpage/page1'
-import Sidebar from './Sidebar'
+
 
 
 const NavBar = styled(Toolbar)(({theme})=>({
-    display:"flex",
-    justifyContent:'center',
-    [theme.breakpoints.down('sm')]:{
-    display:"block"
-    }
+    
     
 })) 
-const Heading = styled(Typography)(({theme})=>({
+const Nav = styled(Box)(({theme})=>({
+    display:'flex',
+    gap:"10vh",
+    marginLeft:"40vh",
     [theme.breakpoints.down('sm')]:{
-        marginTop:"2vh",
-        
+  
+        marginLeft:"6vh",
+         gap:"2vh"
+           
         }
     
+})) ;
+
+const Logo = styled(Typography)(({theme})=>({
+    fontSize:"25px",
+    color:"#344A5F",
+    fontWeight:"bold",
+    [theme.breakpoints.down('sm')]:{
+  
+       fontSize:"15px",
+       }
+})) ;
+
+const Tab1 = styled(Typography)(({theme})=>({
+    fontSize:"20px",
+    color:"#344A5F",
+    [theme.breakpoints.down('sm')]:{
+  
+       fontSize:"13px",
+       }
 })) 
+
 
 
 const Navbar = ()=>{
     return(
    <>
    <Link to="/">
-    <AppBar>
+    <AppBar sx={{ background:"#2A94D6"}}>
         <NavBar >
-            <Heading>
-                CONTACT PAGE
-            </Heading>
+            <Logo >Covid-Tracker</Logo>
+            <Nav>
+            <Link to='/' style={{textDecoration:'none'}}>  <Tab1>Contacts</Tab1></Link>
+            <Link to='/dashboard' style={{textDecoration:'none'}}>  <Tab1>Charts/Dashboard</Tab1></Link>
+            <Link to='/data' style={{textDecoration:'none'}}> <Tab1>Maps</Tab1></Link>
+            </Nav>
+            
         </NavBar>
     </AppBar>
-    <Sidebar/>
+   
     <Page1/>
     </Link>
    </>

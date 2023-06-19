@@ -1,17 +1,20 @@
- import { AppBar , Toolbar , Typography , styled, Box} from '@mui/material';
+ import { AppBar , Toolbar , Typography , styled, Box ,Button} from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../Reducers/Reducer';
 
 
 const Heading = styled(Typography)(({theme})=>({
-  display:'flex',
+  color:"#344A5F",
   fontSize:"20px",
   fontWeight:"bold",
-  justifyContent:"center",
-  alignItems:'center',
-  textAlign:'center'
-  
+ marginLeft:'80vh',
+ [theme.breakpoints.down('sm')]:{
+ marginLeft:'16vh'
+
+  },
+
+ 
 }))
 const Section = styled(Box)(({theme})=>({
   width:'100vh',
@@ -28,12 +31,61 @@ const Section = styled(Box)(({theme})=>({
     
     }
 }))
+const Box1 = styled(Box)(({theme})=>({
+  display:'flex' ,
+  gap:'15vh' ,
+  marginLeft:'20vh',
+  marginTop:"10vh",
+  [theme.breakpoints.down('sm')]:{
+   marginTop:"7.3vh"
+},
+ 
+}));
 
+const Btn = styled(Button)(({theme})=>({
+  display:'flex' ,
+  gap:'20vh' ,
+  marginLeft:'40vh', 
+  marginTop:"10vh" ,
+  width:'20vh' , 
+  height:"5vh" ,
+  fontSize:"20px",
+  alignItems:"center",
+  background:'rgb(0,0,0,0.5)',
+  color:"black",
+  background:'#2A94D6',
+    color:"black",
+    ":hover":{
+      backgroundColor:"#344A5F",
+      color:"#fff"
+  },
+  [theme.breakpoints.down('sm')]:{
+   
+},
+ 
+}));
+
+const Warning = styled(Typography)(({theme})=>({
+  width:'250px',
+  height:"48px",
+  position:'absolute',
+  right:0,
+  top:"10%",
+  background:'#2A94D6',
+  color:"#fff",
+  fontSize:'1.1rem',
+  fontFamily:"cursive",
+  padding:"5px",
+  borderRadius:"5px",
+  
+  
+  }));
 
 const Form = () => {
   const [FirstName, setFirstName] = useState('');
   const [LastName, setLastName] = useState('');
   const [Status, setStatus] = useState('active');
+  const [warning, setWarning] = useState('');
  
   const handleInActive = ()=>{
     setStatus('Inactive')
@@ -45,15 +97,22 @@ const Form = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const id = users.length > 0 ? users[users.length - 1].id + 1 : 1;
-    dispatch(addUser({ id, FirstName, LastName, Status }));
+    dispatch(addUser({ id, FirstName, LastName, Status  }));
      
     
-
   };
+
+  const handleOnClick = ()=>{
+    setWarning(true);
+      setTimeout(() => {
+        setWarning(false);
+      }, 2000);
+      return handleOnClick
+  }
 
   return (
     <>
-      <AppBar>
+      <AppBar sx={{background:'#2A94D6',}}>
         <Toolbar>
       <Heading>Contact Details</Heading>
         </Toolbar>
@@ -62,7 +121,7 @@ const Form = () => {
         
     }}>
       <form onSubmit={handleSubmit}>
-        <div style={{display:'flex' , gap:'15vh' , marginLeft:'20vh', marginTop:"10vh"}}>
+        <Box1 >
           <label htmlFor="firstName" style={{fontSize:'20px'}}>First Name:</label>
           <input
             type="text"
@@ -71,8 +130,8 @@ const Form = () => {
             value={FirstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
-        </div>
-        <div style={{display:'flex' , gap:'15vh' , marginLeft:'20vh', marginTop:"10vh"}}>
+        </Box1>
+        <Box style={{display:'flex' , gap:'15vh' , marginLeft:'20vh', marginTop:"10vh"}}>
           <label htmlFor="lastName" style={{fontSize:'20px'}}>Last Name:</label>
           <input
             type="text"
@@ -81,8 +140,8 @@ const Form = () => {
             value={LastName}
             onChange={(e) => setLastName(e.target.value)}
           />
-        </div>
-        <div style={{display:'flex' , gap:'15vh' , marginLeft:'20vh', marginTop:"10vh"}}>
+        </Box>
+        <Box style={{display:'flex' , gap:'15vh' , marginLeft:'20vh', marginTop:"10vh"}}>
           <label htmlFor="status" style={{fontSize:'20px'}} >Status:</label>
           <select
             id="status"
@@ -93,10 +152,13 @@ const Form = () => {
             <option value="active">Active</option>
             <option onClick={()=>handleInActive()} value="inactive">Inactive</option>
           </select>
-        </div>
-        <button type="submit"  style={{display:'flex' , gap:'20vh' , marginLeft:'40vh', marginTop:"10vh" , width:'20vh' , height:"5vh" , fontSize:"20px"  ,alignItems:"center"}}>Submit</button>
+        </Box>
+        <Btn type="submit" onClick={()=>handleOnClick()} >Submit</Btn>
         
       </form>
+      {
+      warning && <Warning>Contact Added Successfully</Warning>
+      }
     </Section>
     </>
   );

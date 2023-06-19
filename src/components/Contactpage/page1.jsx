@@ -15,20 +15,18 @@ marginTop:"15vh",
 }))
 const Heading = styled(Button)(({theme})=>({
 border:".1px solid black",
-backgroundColor:'rgb(0,0,0,0.5)',
-color:'black',
-
-":hover":{
-    backgroundColor:"#0080ff",
-    color:"#fff"
-},
+backgroundColor:"#344A5F",
+    color:"#fff",
+    ":hover":{
+      
+      background:'#2A94D6',
+      color:"#fff"
+  },
 [theme.breakpoints.down('sm')]:{
-    marginTop:"-10vh",
-   marginLeft:"15vh"
-},
-[theme.breakpoints.down('md')]:{
+    marginTop:"-1s0vh",
    
-}
+},
+
 }))
 
 const Page1 = ()=>{
@@ -36,17 +34,17 @@ const Page1 = ()=>{
 
     return(
         <>
-        <Link to='/'>
+       
     <Section>
         <Box>
-            <Link to='/form' ><Heading>Create Contact</Heading></Link>
+            <Link to='/form' style={{textDecoration:'none'}} ><Heading>Create Contact</Heading></Link>
         </Box>
         
         
         <Contacts/>
 
     </Section>
-    </Link>
+    
     </>
     )
 }
